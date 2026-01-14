@@ -69,7 +69,7 @@ const ArtistDetailScreen = ({ route, navigation }) => {
   };
 
   const toggleFavorite = async () => {
-    if (!artist) return;
+    if (!artist || !artist.idArtist) return;
 
     try {
       const artistData = {

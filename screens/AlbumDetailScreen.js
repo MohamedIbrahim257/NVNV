@@ -75,7 +75,11 @@ const AlbumDetailScreen = ({ route, navigation }) => {
   };
 
   const toggleFavorite = async () => {
-    if (!album) return;
+    console.log('toggleFavorite called', { album, isFavorite });
+    if (!album || !album.idAlbum) {
+      console.log('Early return - no album data');
+      return;
+    }
 
     try {
       const albumData = {
@@ -85,12 +89,15 @@ const AlbumDetailScreen = ({ route, navigation }) => {
         strAlbumThumb: album.strAlbumThumb,
         type: 'album',
       };
+      console.log('Album data to save:', albumData);
 
       if (isFavorite) {
+        console.log('Removing from favorites:', album.idAlbum);
         await StorageService.removeFromFavorites(album.idAlbum);
         setIsFavorite(false);
         Alert.alert('Removed', 'Album removed from favorites');
       } else {
+        console.log('Adding to favorites:', albumData);
         await StorageService.addToFavorites(albumData);
         setIsFavorite(true);
         Alert.alert('Added', 'Album added to favorites');
