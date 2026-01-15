@@ -31,10 +31,10 @@ class DeezerService {
       const data = await this.makeRequest(`/search?q=${encodeURIComponent(query)}&limit=${limit}`);
       const deezerTracks = data?.data || [];
       
-      // Add working preview URLs to tracks
-      const tracksWithAudio = deezerTracks.map((track, index) => ({
+      // Use actual Deezer preview URLs
+      const tracksWithAudio = deezerTracks.map((track) => ({
         ...track,
-        preview: `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${(index % 3) + 1}.mp3` 
+        preview: track.preview || null
       }));
       
       return tracksWithAudio;
@@ -50,10 +50,10 @@ class DeezerService {
       const data = await this.makeRequest(`/search?q=pop&limit=${limit}`);
       const deezerTracks = data?.data || [];
       
-      // Add working preview URLs to tracks
-      const tracksWithAudio = deezerTracks.map((track, index) => ({
+      // Use actual Deezer preview URLs
+      const tracksWithAudio = deezerTracks.map((track) => ({
         ...track,
-        preview: `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${(index % 3) + 1}.mp3` 
+        preview: track.preview || null
       }));
       
       return tracksWithAudio;
